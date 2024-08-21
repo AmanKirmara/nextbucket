@@ -1,0 +1,29 @@
+{
+  "name": "nextbucket",
+  "version": "1.0.0",
+  "description": "CustomStorageBucket is a scalable and flexible cloud storage solution designed to handle file uploads, management, and retrieval for your web and mobile applications. It serves as a comprehensive storage service, providing secure, high-performance, and easy-to-use file storage capabilities. The service is built to support a wide range of file types, including images, videos, and documents, making it an ideal choice for applications that require robust file management features.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AmanKirmara/nextbucket.git"
+  },
+  "keywords": [
+    "storage",
+    "bucket",
+    "space",
+    "cloud"
+  ],
+  "author": "anonymous",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AmanKirmara/nextbucket/issues"
+  },
+  "homepage": "https://github.com/AmanKirmara/nextbucket#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.4",
+    "prettier": "^3.3.3"
+  }
+}
