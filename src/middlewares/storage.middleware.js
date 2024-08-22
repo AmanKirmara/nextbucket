@@ -1,6 +1,6 @@
-// src/middlewares/storage.middleware.js
 import multer from 'multer';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 
 // Ensure __dirname is defined
@@ -9,9 +9,22 @@ const __dirname = path.dirname(__filename);
 
 // Configure multer storage
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    // Use the public/uploads directory
-    cb(null, path.join(__dirname, '../../public/uploads'));
+  destination: async (req, file, cb) => {
+    try {
+      const userId = req.user.id; // Access userId from req.user
+      if (!userId) {
+        return cb(new Error('User ID is not available'), null);
+      }
+
+      const uploadDir = path.join(__dirname, `../../public/uploads/${userId}`);
+
+      // Ensure directory exists
+      await fs.promises.mkdir(uploadDir, { recursive: true });
+
+      cb(null, uploadDir);
+    } catch (err) {
+      cb(err, null);
+    }
   },
   filename: (req, file, cb) => {
     cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));

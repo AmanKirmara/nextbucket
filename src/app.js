@@ -2,6 +2,7 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import storageRoutes from './routes/storage.routes.js';
+import userRoutes from './routes/user.routes.js';
 // Create an instance of Express
 const app = express();
 
@@ -39,8 +40,10 @@ app.get('/', (req, res) => {
   res.send('Hello World'); // Simple response for testing server
 });
 
-// http://localhost:5000/api/storage/
+// http://localhost:4000/api/storage/
 app.use('/api/storage', storageRoutes);
+// http://localhost:4000/api/user/register
+app.use('/api/user', userRoutes);
 
 // Import and define your routes here
 // For a modular and scalable architecture, separate your routes into different files and import them
