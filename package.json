@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "CustomStorageBucket is a scalable and flexible cloud storage solution designed to handle file uploads, management, and retrieval for your web and mobile applications. It serves as a comprehensive storage service, providing secure, high-performance, and easy-to-use file storage capabilities. The service is built to support a wide range of file types, including images, videos, and documents, making it an ideal choice for applications that require robust file management features.",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "nodemon src/index.js"
   },
@@ -23,7 +24,19 @@
   },
   "homepage": "https://github.com/AmanKirmara/nextbucket#readme",
   "devDependencies": {
+    "eslint": "^8.2.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "husky": "^9.1.5",
+    "lint-staged": "^15.2.9",
     "nodemon": "^3.1.4",
     "prettier": "^3.3.3"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-validator": "^7.2.0",
+    "multer": "^1.4.5-lts.1"
   }
 }
