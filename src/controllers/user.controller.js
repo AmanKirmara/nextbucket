@@ -9,9 +9,11 @@ import path from 'path';
 
 const generateAccessAndRefereshTokens = async (userId) => {
   try {
+    console.log("user id in generateaccessandrefreshtokens")
     const user = await User.findById(userId);
     const accessToken = user.generateAccessToken();
     const refreshToken = user.generateRefreshToken();
+    console.log(accessToken, refreshAccessToken , " generateaccessandrefreshtokens access and refresh created ")
 
     user.refreshToken = refreshToken;
     await user.save({ validateBeforeSave: false });

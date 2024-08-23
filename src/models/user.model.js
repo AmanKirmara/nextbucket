@@ -87,6 +87,17 @@ userSchema.methods.isPasswordCorrect = async function (password) {
 };
 
 userSchema.methods.generateAccessToken = function () {
+    // Log the data being used in the token
+    console.log("Generating Access Token with the following data:");
+    console.log("_id:", this._id);
+    console.log("email:", this.email);
+    console.log("username:", this.username);
+    console.log("fullName:", this.fullName);
+    console.log("role:", this.role);
+    console.log("ACCESS_TOKEN_SECRET:", process.env.ACCESS_TOKEN_SECRET);
+    console.log("ACCESS_TOKEN_EXPIRY:", process.env.ACCESS_TOKEN_EXPIRY);
+
+    // Generate and return the access token
     return jwt.sign(
         {
             _id: this._id,
@@ -102,7 +113,15 @@ userSchema.methods.generateAccessToken = function () {
     );
 };
 
+
 userSchema.methods.generateRefreshToken = function () {
+    // Log the data being used in the token
+    console.log("Generating Refresh Token with the following data:");
+    console.log("_id:", this._id);
+    console.log("REFRESH_TOKEN_SECRET:", process.env.REFRESH_TOKEN_SECRET);
+    console.log("REFRESH_TOKEN_EXPIRY:", process.env.REFRESH_TOKEN_EXPIRY);
+
+    // Generate and return the refresh token
     return jwt.sign(
         { _id: this._id },
         process.env.REFRESH_TOKEN_SECRET,
@@ -111,5 +130,6 @@ userSchema.methods.generateRefreshToken = function () {
         }
     );
 };
+
 
 export const User = mongoose.model("User", userSchema);
