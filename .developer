@@ -1,0 +1,8 @@
+app.put('/update-sensitive-info', authenticateToken, checkActiveSession, async (req, res) => {
+    const { userId } = req.user;
+    const user = await User.findById(userId);
+    if (user.role !== 'admin' && userId !== req.user._id) {
+        return res.status(403).json({ message: "Not authorized to update this information." });
+    }
+    // Proceed to update the sensitive information
+});

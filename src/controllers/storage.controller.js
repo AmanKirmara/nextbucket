@@ -15,7 +15,7 @@ const uploadFile = (req, res) => {
       .json(new ApiResponse(400, null, 'File is missing in the request'));
   }
 
-  const fileUrl = path.posix.join(`${'/uploads'}/${userId}`, req.file.filename);
+  const fileUrl = path.posix.join(`http://157.230.249.25${'/uploads'}/${userId}`, req.file.filename);
   // Ensure the file is saved correctly to the directory here (if needed)
 
   res

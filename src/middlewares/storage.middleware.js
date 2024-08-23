@@ -11,7 +11,7 @@ const __dirname = path.dirname(__filename);
 const storage = multer.diskStorage({
   destination: async (req, file, cb) => {
     try {
-      const userId = req.user.id; // Access userId from req.user
+      const userId = req.user._id; // Access userId from req.user
       if (!userId) {
         return cb(new Error('User ID is not available'), null);
       }

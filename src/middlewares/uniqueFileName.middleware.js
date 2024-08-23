@@ -12,7 +12,7 @@ const UPLOAD_DIR = path.join(__dirname, '../../public/uploads');
 
 // Middleware to ensure file name uniqueness
 export const uniqueFileNameMiddleware = (req, res, next) => {
-    const userId = req.user.id;
+    const userId = req.user._id;
   if (!req.file) {
     // No file was uploaded, so just proceed
     return next();

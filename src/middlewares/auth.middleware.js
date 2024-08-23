@@ -1,39 +1,56 @@
-// src/middlewares/auth.middleware.js
+import { User } from '../models/user.model.js';
 
-import { config } from 'dotenv';
-
-config(); // Load environment variables from .env file
-
-const NEXTBUCKET_CLOUD_NAME = process.env.NEXTBUCKET_CLOUD_NAME;
-const NEXTBUCKET_API_KEY = process.env.NEXTBUCKET_API_KEY;
-const NEXTBUCKET_SECRET = process.env.NEXTBUCKET_SECRET;
+// Load environment variables from .env file
 
 // Middleware to check authorization
+const verifyAuthorization = (apiKey, storedApiKey) => {
+  // Ensure the provided API key matches the one stored in the database
+  return apiKey === storedApiKey;
+};
 
-const veriFyAuthorization = (userId) => {
-    return userId === NEXTBUCKET_SECRET;
-}
-export const authMiddleware = (req, res, next) => {
-  const cloudName = req.headers['x-cloud-name'];
-  const apiKey = req.headers['x-api-key'];
-  const secret = req.headers['x-secret'];
+export const authMiddleware = async (req, res, next) => {
+  try {
+    const cloudName = req.headers['x-user-name'];
+    const apiKey = req.headers['x-api-key'];
 
-  if (cloudName === NEXTBUCKET_CLOUD_NAME && apiKey === NEXTBUCKET_API_KEY) {
-    const userIdCheck = veriFyAuthorization(secret);
-    if (!userIdCheck) {
-        return res.status(403).json({
-            statusCode: 403,
-            message: 'Forbidden: Invalid credentials -user',
-            success: false,
-        });
+    if (!cloudName || !apiKey) {
+      return res.status(400).json({
+        statusCode: 400,
+        message: 'Bad Request: Missing required headers',
+        success: false,
+      });
     }
-    req.user = { id: NEXTBUCKET_SECRET };
+
+    // Find the user by cloudName or API key
+    const user = await User.findOne({
+      $or: [{ username: cloudName }, { apiKey }],
+    });
+
+    if (!user) {
+      return res.status(404).json({
+        statusCode: 404,
+        message: 'Not Found: User not found',
+        success: false,
+      });
+    }
+
+    // Check if the provided API key matches the one in the database
+    if (!verifyAuthorization(apiKey, user.apiKey)) {
+      return res.status(403).json({
+        statusCode: 403,
+        message: 'Forbidden: Invalid API key',
+        success: false,
+      });
+    }
+
+    // Successfully authenticated, attach user to request
+    req.user = user;
     next();
-  } else {
-    // Authorization failed
-    res.status(403).json({
-      statusCode: 403,
-      message: 'Forbidden: Invalid credentials',
+  } catch (error) {
+    console.error('Authentication error:', error);
+    res.status(500).json({
+      statusCode: 500,
+      message: 'Internal Server Error',
       success: false,
     });
   }
