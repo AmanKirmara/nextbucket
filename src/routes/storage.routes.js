@@ -11,8 +11,14 @@ import { systemStorage } from '../controllers/system.storage.controller.js';
 
 const router = express.Router();
 
-router.post('/upload', authMiddleware,uniqueFileNameMiddleware, upload.single('file'), uploadFile);
+router.post(
+  '/upload',
+  authMiddleware,
+  uniqueFileNameMiddleware,
+  upload.single('file'),
+  uploadFile,
+);
 router.get('/file/:filename', getFileController);
 router.delete('/file/:filename', deleteFileController);
-router.get('/system-storage', systemStorage)
+router.get('/system-storage', systemStorage);
 export default router;
