@@ -6,3 +6,4 @@ app.put('/update-sensitive-info', authenticateToken, checkActiveSession, async (
     }
     // Proceed to update the sensitive information
 });
+

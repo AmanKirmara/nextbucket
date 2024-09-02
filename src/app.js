@@ -3,19 +3,19 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import storageRoutes from './routes/storage.routes.js';
 import userRoutes from './routes/user.routes.js';
+import dotenv from 'dotenv';
 // Create an instance of Express
 const app = express();
-
+dotenv.config();
 // CORS middleware configuration
 // Enables Cross-Origin Resource Sharing for specific origins in production
 // For development, you can allow all origins, but restrict it in production for security
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN, // Allowed origin(s), e.g., 'https://yourdomain.com'
-    credentials: true, // Allow cookies to be sent with cross-origin requests
+    origin: process.env.CORS_ORIGIN, // Ensure this value is correctly set
+    credentials: true, // Allows cookies to be included in the requests
   }),
 );
-
 // Body parser middleware
 // Parses incoming JSON requests and limits the request size for security
 app.use(express.json({ limit: '16kb' }));
