@@ -7,10 +7,7 @@
   "scripts": {
     "dev": "nodemon src/index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/AmanKirmara/nextbucket.git"
-  },
+
   "keywords": [
     "storage",
     "bucket",
@@ -18,11 +15,7 @@
     "cloud"
   ],
   "author": "anonymous",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/AmanKirmara/nextbucket/issues"
-  },
-  "homepage": "https://github.com/AmanKirmara/nextbucket#readme",
+  
   "devDependencies": {
     "eslint": "^8.2.0",
     "eslint-config-airbnb-base": "^15.0.0",
